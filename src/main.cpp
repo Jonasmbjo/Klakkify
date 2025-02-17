@@ -4,6 +4,24 @@
 #include <unistd.h> // For low-level read() function
 #include "sound.h" // Include the sound playback header
 
+// Function to enable raw input mode
+void enableRawMode() {
+	struct termios tty; 
+	tcgetattr(STDIN_FILENO, &tty);
+	struct termios raw = tty;
+	raw.c_lflag &= ~(ECHO | ICANON);
+	tcsetattr(STDIN_FILENO, TCSANOW, &raw);
+}
+
+// Function to restore to normal mode
+void disableRawMode() {
+	struct termios tty;
+	tcgetattr(STDIN_FILENO, &tty);
+	tty.c_lflag |= (ECHO | ICANON);
+	tcsetattr(STDIN_FILENO, TCSANOW, &tty);
+}
+
+
 
 int main() {
 	std::cout << "Press any key to play a sound. Press 'q' to quit.\n";
