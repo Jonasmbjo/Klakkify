@@ -1,36 +1,48 @@
-
 # Compiler and flags
 CC = g++
 CFLAGS = -Wall -std=c++17
+LIBS = -levdev  # evdev library for global key detection
 
-# Target executable
-TARGET = Klakkify
-
-# Source files
-SRCDIR = src
-SRC = $(SRCDIR)/main.cpp $(SRCDIR)/sound.cpp
+# Targets (program names)
+TARGET1 = klakkify    # Terminal version
+TARGET2 = globalklakkify         # Global version
 
 # Object files
-OBJ = main.o sound.o
+OBJ1 = main.o sound.o
+OBJ2 = globalkeys.o sound.o
 
-# Default target
-all: $(TARGET)
+# ===========================
+# Default Target (Compiles Both)
+# ===========================
+all: $(TARGET1) $(TARGET2)
 
-# Compile the executable from object files
-$(TARGET): $(OBJ)
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJ)
+# ===========================
+# Terminal-only Version
+# ===========================
+$(TARGET1): $(OBJ1)
+	$(CC) $(CFLAGS) -o $(TARGET1) $(OBJ1)
 
-# Compile main.cpp to object file
-main.o: $(SRCDIR)/main.cpp $(SRCDIR)/sound.h
-	$(CC) $(CFLAGS) -c $(SRCDIR)/main.cpp
+main.o: src/main.cpp src/sound.h
+	$(CC) $(CFLAGS) -c src/main.cpp
 
-# Compile sound.cpp to object file
-sound.o: $(SRCDIR)/sound.cpp $(SRCDIR)/sound.h
-	$(CC) $(CFLAGS) -c $(SRCDIR)/sound.cpp
+# ===========================
+# Global Key Listener Version
+# ===========================
+$(TARGET2): $(OBJ2)
+	$(CC) $(CFLAGS) -o $(TARGET2) $(OBJ2) $(LIBS)
 
-# Clean target to remove compiled files
+globalkeys.o: src/globalkeys.cpp src/sound.h
+	$(CC) $(CFLAGS) -c src/globalkeys.cpp $(LIBS)
+
+# ===========================
+# Common Sound Object
+# ===========================
+sound.o: src/sound.cpp src/sound.h
+	$(CC) $(CFLAGS) -c src/sound.cpp
+
+# ===========================
+# Clean Target
+# ===========================
 clean:
-	rm -f $(OBJ) $(TARGET)
-
-
+	rm -f $(OBJ1) $(OBJ2) $(TARGET1) $(TARGET2)
 

@@ -6,7 +6,7 @@
 #include "sound.h"
 
 int main() {
-	const char* device = "dev/input/event5";
+	const char* device = "/dev/input/event2";
 	int fd = open(device, O_RDONLY);
 	if (fd < 0) {
 		std::cerr << "Error: Cannot open input device";
