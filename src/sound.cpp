@@ -6,5 +6,5 @@
 void playSound() {
 	// Use system() to play 
 
-	system("aplay beep.wav &";)
+	system("aplay src/sound1.wav &");
 }
