@@ -1,0 +1,19 @@
+# Ignore object files and executables
+*.o
+*.out
+*.exe
+*.bin
+*.so
+keystroke-sound
+globalkeys
+
+# Ignore build directories
+/build/
+/dist/
+/target/
+
+# Ignore temporary files
+*.log
+*.tmp
+*.swp
+
