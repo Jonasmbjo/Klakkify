@@ -18,9 +18,6 @@ int main() {
 	struct input_event ev;
 	while (read(fd, &ev, sizeof(struct input_event)) > 0) {
 		if (ev.type == EV_KEY && ev.value == 1) { // Key pressed
-			if (ev.code == KEY_Q) { // Press 'q' to exit
-				break;
-			}
 			playSound();
 		}
 	}
