@@ -4,8 +4,8 @@
 *.exe
 *.bin
 *.so
-keystroke-sound
-globalkeys
+klakkify
+globalklakkify
 
 # Ignore build directories
 /build/
